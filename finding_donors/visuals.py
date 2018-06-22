@@ -110,13 +110,14 @@ def evaluate(results, accuracy, f1):
     patches = []
     for i, learner in enumerate(results.keys()):
         patches.append(mpatches.Patch(color = colors[i], label = learner))
-    pl.legend(handles = patches, bbox_to_anchor = (-.80, 2.53), \
-               loc = 'upper center', borderaxespad = 0., ncol = 3, fontsize = 'x-large')
+    fig.legend(handles = patches, \
+               loc = 'best', borderaxespad = 0., ncol = 1, fontsize = 'x-large')
     
     # Aesthetics
     pl.suptitle("Performance Metrics for Three Supervised Learning Models", fontsize = 16, y = 1.10)
     pl.tight_layout()
     pl.show()
+    return pl, fig
     
 
 def feature_plot(importances, X_train, y_train):
