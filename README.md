@@ -45,7 +45,7 @@ There is a fictitious charity seeking people who make more than $50,000 annually
 ## How to run the code
 
 1. Clone this repository
-2. In a terminal or command window, navigate to the directory `finding_donors/` and run the following commands:
+2. In a terminal or command window, navigate to the directory `finding_donors/code/` and run the following commands:
 
     ```bash
     jupyter notebook finding_donors.ipynb
