@@ -1,59 +1,54 @@
-# Data Scientist Nanodegree, Supervised Learning
-## Project: Finding Donors for CharityML
+# Finding Donors
 
-### Descriptions
+## Problem to solve
 
-CharityML is a fictitious charity organization located in the heart of Silicon Valley that was established to provide financial support for people eager to learn machine learning. After nearly 32,000 letters were sent to people in the community, CharityML determined that every donation they received came from someone that was making more than $50,000 annually. To expand their potential donor base, CharityML has decided to send letters to residents of California, but to only those most likely to donate to the charity. With nearly *15 million* working Californians, CharityML has brought you on board to help build an algorithm to best identify potential donors and reduce overhead cost of sending mail. Your goal will be evaluate and optimize several different supervised learners to determine which algorithm will provide the highest donation yield while also reducing the total number of letters being sent.
+There is a fictitious charity seeking people who make more than $50,000 annually as potential donors. The goal is to build a supervised learning model to best identify potential donors and reduce overhead cost of sending mail.
 
-### Install
+## Available data
 
-This project requires **Python 3.x** and the following Python libraries installed:
+1994 U.S. Census data with 13 features and ~32,000 data points. This dataset was provided by the Nanodegree program. This dataset is a modified version of the dataset published in the paper *"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid",* by Ron Kohavi. Here is the paper [online](https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf), with the original dataset hosted on [UCI](https://archive.ics.uci.edu/ml/datasets/Census+Income).
 
-- [NumPy](http://www.numpy.org/)
-- [Pandas](http://pandas.pydata.org)
-- [matplotlib](http://matplotlib.org/)
-- [scikit-learn](http://scikit-learn.org/stable/)
+## What I did
 
-You will also need to have software installed to run and execute an [iPython Notebook](http://ipython.org/notebook.html)
+1. Data exploration and data preprocessing
 
-We recommend students install [Anaconda](https://www.continuum.io/downloads), a pre-packaged Python distribution that contains all of the necessary libraries and software for this project.
+    - Find that income class was skewed, 25% earning >= $50,000
+    - Transform skewed continuous features
+    - Normalize numerical features
+    - Convert categorical features
+    - Shuffle and split data into training and testing
 
-### Code
+2. Employ 3 supervised learning algorithms to classify individuals' income using census data
 
-Template code is provided in the `finding_donors.ipynb` notebook file. You will also be required to use the included `visuals.py` Python file and the `census.csv` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. Note that the code included in `visuals.py` is meant to be used out-of-the-box and not intended for students to manipulate. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
+    - Define metrics (F0.5 score)
+    - Examine naïve predictor's performance
+    - Choose 3 supervised learning algorithms (AdaBoost, Random Forest, Gradient Boosting) that work well with continuous and binary dataset
+    - Create training and predicting pipeline
+    - Evaluate the performance if 3 algorithms by examining learning curves and time for training and prediction.
 
-### Run
+3. Choose the best algorithm based on preliminary results to further optimize this algorithm
 
-In a terminal or command window, navigate to the top-level project directory `finding_donors/` (that contains this README) and run one of the following commands:
+    - Choose AdaBoost as the best candidate algorithm for its high predictive power and fast speed
+    - Perform a grid search cross validation to tune hyperparameters to optimize F-score
+    - Evaluate the optimized model on test set
+    - Extract feature importance, i.e., top-5 most predictive features
 
-```bash
-ipython notebook finding_donors.ipynb
-```  
-or
-```bash
-jupyter notebook finding_donors.ipynb
-```
+## Results
 
-This will open the iPython Notebook software and project file in your browser.
+- Trained AdaBoost model reaches 87% testing accuracy
+- There is only ~1%-3% decrease in F-score when using only the top-5 most predictive features
 
-### Data
+## What I learnt
 
-The modified census dataset consists of approximately 32,000 data points, with each datapoint having 13 features. This dataset is a modified version of the dataset published in the paper *"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid",* by Ron Kohavi. You may find this paper [online](https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf), with the original dataset hosted on [UCI](https://archive.ics.uci.edu/ml/datasets/Census+Income).
+- If training time is a concern, I will consider using the reduced data as the training set, because reduced data require less training time but still perform reasonably well. 
 
-**Features**
-- `age`: Age
-- `workclass`: Working Class (Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked)
-- `education_level`: Level of Education (Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool)
-- `education-num`: Number of educational years completed
-- `marital-status`: Marital status (Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse)
-- `occupation`: Work Occupation (Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces)
-- `relationship`: Relationship Status (Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried)
-- `race`: Race (White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black)
-- `sex`: Sex (Female, Male)
-- `capital-gain`: Monetary Capital Gains
-- `capital-loss`: Monetary Capital Losses
-- `hours-per-week`: Average Hours Per Week Worked
-- `native-country`: Native Country (United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands)
+## How to run the code
 
-**Target Variable**
-- `income`: Income Class (<=50K, >50K)
+1. Clone this repository
+2. In a terminal or command window, navigate to the directory `finding_donors/` and run the following commands:
+
+    ```bash
+    jupyter notebook finding_donors.ipynb
+    ```
+
+    This will open the iPython Notebook software and project file in the browser.
